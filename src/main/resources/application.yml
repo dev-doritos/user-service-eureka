@@ -1,18 +1,32 @@
 server:
-  port: 0 # random port ?? > Edit Configurations ? ?? instance ?? ??
+  port: 0 # Random port 설정
 
 spring:
   application:
     name: user-service
 
-# ??? ?? ??
-# instance-id ? ???? instance ? ?? ???? ??.
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+      settings:
+        web-allow-others: true
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:~/test
+    username: sa
+
+# Eureka 관련 설정
+# instance-id 를 등록하게 되면 각각의 instance 로 설정됨
 eureka:
   instance:
     instance-id: ${spring.cloud.client.hostname}:${spring.application.instance_id:${random.value}}
   client:
-    fetch-registry: true
-    register-with-eureka: true
+    fetch-registry: false
+    register-with-eureka: false
     service-url:
       defaultZone: http://localhost:8761/eureka/
 
