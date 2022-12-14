@@ -16,7 +16,7 @@ spring:
         web-allow-others: true
   datasource:
     driver-class-name: org.h2.Driver
-    url: jdbc:h2:~/test
+    url: jdbc:h2:mem:test
     username: sa
 
 # Eureka 관련 설정
@@ -25,10 +25,15 @@ eureka:
   instance:
     instance-id: ${spring.cloud.client.hostname}:${spring.application.instance_id:${random.value}}
   client:
-    fetch-registry: false
-    register-with-eureka: false
+    fetch-registry: true
+    register-with-eureka: true
     service-url:
       defaultZone: http://localhost:8761/eureka/
 
 greeting:
   message: Welcome User-Service
+  
+# JWT 정보 설정
+token:
+  expiration_time: 86400000 #24시간 * 60분 * 60초
+  secret: user_token
